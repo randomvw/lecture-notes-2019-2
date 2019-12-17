@@ -1,67 +1,25 @@
 const express = require('express');
-const app = express();
+//! Added import of puppy controller
+const puppyController = require('./controllers/puppy-controller');
 
-const puppies = [];
-let id = 1;
+const app = express();
 
 app.use(express.json());
 
-// Add a puppy
-app.post('/puppies', (request, response) => {
-  let puppy = request.body;
-  puppy.id = id;
-  puppies.push(puppy);
-  id++;
-  response.json(puppy);
-});
+//! Add a puppy - referenced addOne from the controller
+app.post('/puppies', puppyController.addOne);
 
-// Get all puppies
-app.get('/puppies', (request, response) => {
-  response.json(puppies);
-});
+//! Get all puppies - referenced getAll from the controller
+app.get('/puppies', puppyController.getAll);
 
-// Get one puppy
-app.get('/puppies/:id', (request, response) => {
-  const id = request.params.id;
+//! Get one puppy - referenced getOne from the controller
+app.get('/puppies/:id', puppyController.getOne);
 
-  const puppy = puppies.find(puppy => puppy.id == id);
+//! Update one puppy - referenced updateOne from the controller
+app.put('/puppies/:id', puppyController.updateOne);
 
-  if (puppy) {
-    response.json(puppy);
-  }
-  else {
-    response.status(404).send();
-  }
-});
-
-// Update one puppy
-app.put('/puppies/:id', (request, response) => {
-  const id = request.params.id;
-
-  for (let i = 0; i < puppies.length; i++) {
-    if (puppies[i].id == id) {
-      puppies[i] = request.body;
-      puppies[i].id = Number.parseInt(id);
-      response.json(puppies[i]);
-    }
-  }
-  response.status(404).send();
-});
-
-// Delete one puppy
-app.delete('/puppies/:id', (request, response) => {
-  const { id } = request.params;
-
-  const index = puppies.findIndex(puppy => puppy.id == id);
-  puppies.splice(index, 1);
-
-  if (index >= 0) {
-    response.status(200).send();
-  }
-  else {
-    response.status(404).send();
-  }
-});
+//! Delete one puppy - referenced deleteOne from the controller
+app.delete('/puppies/:id', puppyController.deleteOne);
 
 app.listen(3000, () => {
   console.log('Now listening on port 3000');
