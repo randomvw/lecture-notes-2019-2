@@ -1,0 +1,26 @@
+{
+  "name": "movie-rest-api-robinsonaaron",
+  "version": "1.0.0",
+  "description": "### Create all of the CRUD routes for a movie resource",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uark-backend-class/movie-rest-api-robinsonaaron.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uark-backend-class/movie-rest-api-robinsonaaron/issues"
+  },
+  "homepage": "https://github.com/uark-backend-class/movie-rest-api-robinsonaaron#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^7.17.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.3"
+  }
+}
