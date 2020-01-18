@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const routes = require('./routes/index');
 
@@ -8,6 +9,6 @@ app.use(express.json());
 
 app.use(routes);
 
-const listener = app.listen(3000, () => {
+const listener = app.listen(process.env.PORT, () => {
   console.log(`Server listening on port ` + listener.address().port);
 });
