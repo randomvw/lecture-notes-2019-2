@@ -1,0 +1,16 @@
+<h1>Student List</h1>
+<a class="btn btn-primary" href='/add'>Add a Student</a>
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Phone</th>
+    <th></th>
+  </tr>
+  {{#each students }}
+    <tr>
+      <td>{{this.firstName}} {{this.lastName}}</td>
+      <td>{{this.phone}}</td>
+      <td><a class="btn btn-secondary btn-sm" href="/edit/{{ this.id }}">Edit</a> <a class="btn btn-warning btn-sm" href="/delete/{{ this.id }}">Delete</a></td>
+    </tr>
+  {{/each}}
+</table>

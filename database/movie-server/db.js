@@ -1,4 +1,3 @@
-const postgres = require('pg');
 const Sequelize = require('sequelize');
 const MovieModel = require('./models/movie');
 
