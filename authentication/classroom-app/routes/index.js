@@ -1,25 +1,16 @@
 const router = require('express').Router();
 const studentController = require('../controllers/student.controller');
-const User = require('../db').User;
+const authController = require('../controllers/auth.controller');
 
-router.get('/', studentController.listStudents);
-router.get('/add', studentController.addStudent);
-router.post('/update', studentController.updateStudent);
-router.get('/delete/:id', studentController.deleteStudent);
-router.get('/edit/:id', studentController.editStudent);
-router.get('/register', (req, res) => res.render('register'));
-router.post('/register', (req, res) => {
-  let username = req.body.username;
-  let password = req.body.password;
-
-  User.register(username, password, (error, registeredUser) => {
-    if (error) {
-      console.log(error.message);
-      return res.status(500).send();
-    }
-
-    res.send("Created user: " + username);
-  });
-});
+router.get('/', authController.isLoggedIn, studentController.listStudents);
+router.get('/add', authController.isLoggedIn, studentController.addStudent);
+router.post('/update', authController.isLoggedIn, studentController.updateStudent);
+router.get('/delete/:id', authController.isLoggedIn, studentController.deleteStudent);
+router.get('/edit/:id', authController.isLoggedIn, studentController.editStudent);
+router.get('/register', authController.registerPage);
+router.post('/register', authController.registerUser);
+router.get('/login', authController.loginPage);
+router.post('/login', authController.loginUser);
+router.get('/logout', authController.logoutUser);
 
 module.exports = router;
