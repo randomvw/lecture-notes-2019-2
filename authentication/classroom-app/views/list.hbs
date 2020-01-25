@@ -1,4 +1,8 @@
 <h1>Student List</h1>
+{{#if flashes}}
+  {{ flashes.[0] }}
+  <br />
+{{/if}}
 <a class="btn btn-primary" href='/add'>Add a Student</a>
 <table class="table">
   <tr>

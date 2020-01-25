@@ -6,10 +6,12 @@ const exphbs = require('express-handlebars');
 const router = require('./routes');
 const passport = require('passport');
 const session = require('express-session');
+const flash = require('connect-flash');
 
 const app = express();
 
 app.use(session({ secret: 'keyboard cat' }));
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(User.createStrategy());

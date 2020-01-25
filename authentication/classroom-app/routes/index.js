@@ -3,7 +3,7 @@ const studentController = require('../controllers/student.controller');
 const authController = require('../controllers/auth.controller');
 
 router.get('/register', authController.registerPage);
-router.post('/register', authController.registerUser);
+router.post('/register', authController.registerUser, authController.loginUser);
 router.get('/login', authController.loginPage);
 router.post('/login', authController.loginUser);
 router.get('/logout', authController.logoutUser);

@@ -5,7 +5,7 @@ exports.registerPage = (req, res) => {
   res.render('register-login', { action: 'register', buttonText: 'Register' });
 };
 
-exports.registerUser = (req, res) => {
+exports.registerUser = (req, res, next) => {
   let username = req.body.username;
   let password = req.body.password;
 
@@ -15,15 +15,21 @@ exports.registerUser = (req, res) => {
       return res.status(500).send();
     }
 
-    res.send("Created user: " + username);
+    req.flash('success', 'Welcome new user ' + username);
+    next();
   });
 };
 
 exports.loginPage = (req, res) => {
-  res.render('register-login', { action: 'login', buttonText: 'Login' });
+  res.render('register-login', { action: 'login', buttonText: 'Login', flashes: req.flash('error') });
 }
 
-exports.loginUser = passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' });
+exports.loginUser = passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+  failureFlash: true,      // Creates flash messages available on the 'error' key. req.flash('error')
+  successFlash: 'Welcome!' // Creates flash messages available on the 'success' key. req.flash('success')
+});
 
 exports.logoutUser = (req, res) => {
   req.logout(); // logout is provided by passport
