@@ -14,9 +14,15 @@ exports.calculateResults = (req, res) => {
   for (let i = 1; i <= years * 12; i++) {
     let interest = monthlyInterestRate * balance; // 41.67
     balance = balance + interest; // 50041.67
-    results.push({month: i, interest: interest.toFixed(2), balance: balance.toFixed(2)});
+    let monthlyResultObject = {
+      month : i,
+      interest: interest.toFixed(2),
+      balance: balance.toFixed(2),
+    }
+    results.push(monthlyResultObject);
   }
 
-  console.log(results);
-  res.render('results', { results: results });
+  let totalBalance = results[results.length - 1].balance;
+
+  res.render('results', { results, totalBalance });
 };

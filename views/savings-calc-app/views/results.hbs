@@ -1,0 +1,15 @@
+<h3>Total Balance: {{ totalBalance }}</h3>
+<table>
+  <tr>
+    <th>Month</th>
+    <th>Interest</th>
+    <th>Balance</th>
+  </tr>
+  {{#each results}}
+  <tr>
+    <td>{{this.month}}</td>
+    <td>{{this.interest}}</td>
+    <td>{{this.balance}}</td>
+  </tr>
+  {{/each}}
+</table>
