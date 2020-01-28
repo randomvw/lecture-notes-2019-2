@@ -45,3 +45,8 @@ exports.isLoggedIn = (req, res, next) => {
   // Otherwise redirect the inauthenticated user to the login page.
   res.redirect('/login');
 }
+
+exports.loginGithubCallback = passport.authenticate('github',
+  { failureRedirect: '/login', failureFlash: 'Failed to login', successRedirect: '/' });
+
+exports.loginUserGithub = passport.authenticate('github', { scope: ['user:email'] });

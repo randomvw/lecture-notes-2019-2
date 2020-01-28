@@ -12,7 +12,7 @@ exports.listStudents = async (req, res) => {
 
 exports.updateStudent = async (req, res) => {
   req.body.userId = req.user.id;
-  await Student.upsert(req.body);
+  await Student.upsert(req.body);  //  { firstName: "Bob", lastName: "Smith", userId: 2, phone: "555-5555" }
   res.redirect('/');
 }
 

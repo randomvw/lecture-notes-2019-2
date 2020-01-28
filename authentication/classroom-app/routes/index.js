@@ -7,6 +7,8 @@ router.post('/register', authController.registerUser, authController.loginUser);
 router.get('/login', authController.loginPage);
 router.post('/login', authController.loginUser);
 router.get('/logout', authController.logoutUser);
+router.get('/auth/callback', authController.loginGithubCallback);
+router.get('/loginGithub', authController.loginUserGithub);
 
 router.use(authController.isLoggedIn); // Every route below requires authentication
 router.get('/', studentController.listStudents);
