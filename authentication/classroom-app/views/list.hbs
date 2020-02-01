@@ -3,7 +3,10 @@
   {{ flashes.[0] }}
   <br />
 {{/if}}
+
+{{#if isAdmin}}
 <a class="btn btn-primary" href='/add'>Add a Student</a>
+{{/if}}
 <table class="table">
   <tr>
     <th>Name</th>

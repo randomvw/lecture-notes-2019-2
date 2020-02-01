@@ -11,10 +11,19 @@ router.get('/auth/callback', authController.loginGithubCallback);
 router.get('/loginGithub', authController.loginUserGithub);
 
 router.use(authController.isLoggedIn); // Every route below requires authentication
-router.get('/', studentController.listStudents);
-router.get('/add', studentController.addStudent);
-router.post('/update', studentController.updateStudent);
-router.get('/delete/:id', studentController.deleteStudent);
-router.get('/edit/:id', studentController.editStudent);
+router.get('/', authorizeRole([1, 2]), studentController.listStudents);
+router.get('/add', authorizeRole([2]), studentController.addStudent);
+router.post('/update', authorizeRole([1, 2]), studentController.updateStudent);
+router.get('/delete/:id', authorizeRole([2]), studentController.deleteStudent);
+router.get('/edit/:id', authorizeRole([1, 2]), studentController.editStudent);
+
+function authorizeRole(roles) {
+  return (req, res, next) => {
+    if (roles.includes(req.user.roleId)) {
+      return next();
+    }
+    res.status(401).render('unauthorized');
+  }
+}
 
 module.exports = router;

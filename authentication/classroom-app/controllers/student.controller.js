@@ -7,7 +7,7 @@ exports.addStudent = async (req, res) => {
 exports.listStudents = async (req, res) => {
   let students = await Student.findAll({ where: { userId: req.user.id }, order: [['lastName', 'ASC']] });
 
-  res.render('list', { students, flashes: req.flash('success') });
+  res.render('list', { isAdmin: req.user.roleId === 2, students, flashes: req.flash('success') });
 }
 
 exports.updateStudent = async (req, res) => {
