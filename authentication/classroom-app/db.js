@@ -26,4 +26,5 @@ sequelize.sync()
 module.exports = {
   Student,
   User,
+  Role,
 }

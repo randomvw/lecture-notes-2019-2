@@ -24,12 +24,17 @@ exports.loginPage = (req, res) => {
   res.render('register-login', { action: 'login', buttonText: 'Login', flashes: req.flash('error') });
 }
 
-exports.loginUser = passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true,      // Creates flash messages available on the 'error' key. req.flash('error')
-  successFlash: 'Welcome!' // Creates flash messages available on the 'success' key. req.flash('success')
-});
+exports.loginUser = (req, res, next) => {
+  let redirect = req.session.redirectTo  || '/';
+  delete req.session.redirectTo;
+
+  passport.authenticate('local', {
+    successRedirect: redirect,
+    failureRedirect: '/login',
+    failureFlash: true,      // Creates flash messages available on the 'error' key. req.flash('error')
+    successFlash: 'Welcome!' // Creates flash messages available on the 'success' key. req.flash('success')
+  })(req, res, next);
+};
 
 exports.logoutUser = (req, res) => {
   req.logout(); // logout is provided by passport
@@ -42,6 +47,8 @@ exports.isLoggedIn = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
+  req.session.redirectTo = req.url;
+  console.log(req.url);
   // Otherwise redirect the inauthenticated user to the login page.
   res.redirect('/login');
 }

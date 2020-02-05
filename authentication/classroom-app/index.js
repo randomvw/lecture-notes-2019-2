@@ -15,8 +15,8 @@ app.use(session({ secret: 'keyboard cat' }));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(User.createStrategy());
-passport.use(new GithubStrategy({
+passport.use(User.createStrategy()); // This is the local strategy (username, password)
+passport.use(new GithubStrategy({    // This is the Github strategy
   clientID: process.env.GITHUB_CLIENT,
   clientSecret: process.env.GITHUB_CLIENT_SECRET,
   callbackURL: process.env.GITHUB_CALLBACK_URL
@@ -40,6 +40,6 @@ app.set('view engine', '.hbs');
 app.use(express.urlencoded({ extended: true }));
 app.use(router);
 
-app.listen(3000, () => {
-  console.log(`Now listening on port 3000`)
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`Now listening`)
 });

@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const studentController = require('../controllers/student.controller');
 const authController = require('../controllers/auth.controller');
+const adminController = require('../controllers/admin.controller');
 
 router.get('/register', authController.registerPage);
 router.post('/register', authController.registerUser, authController.loginUser);
@@ -16,6 +17,8 @@ router.get('/add', authorizeRole([2]), studentController.addStudent);
 router.post('/update', authorizeRole([1, 2]), studentController.updateStudent);
 router.get('/delete/:id', authorizeRole([2]), studentController.deleteStudent);
 router.get('/edit/:id', authorizeRole([1, 2]), studentController.editStudent);
+router.get('/admin', authorizeRole([2]), adminController.adminPage);
+router.post('/updateRoles', authorizeRole([2]), adminController.updateRoles);
 
 function authorizeRole(roles) {
   return (req, res, next) => {
