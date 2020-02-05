@@ -110,7 +110,8 @@ typings/
 .nuxt
 
 # react / gatsby
-public/
+# removed for use with express static app
+# public/
 
 # vuepress build output
 .vuepress/dist
