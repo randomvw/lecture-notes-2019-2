@@ -7,11 +7,13 @@
 </head>
 <body>
   <div id="sum"></div>
-  <div id="formPrices">
-    <input type="text" name="price[]" /><br/>
-  </div>
-  <button type="button" id="addButton">Add new</button><br/>
-  <button type="button" id="calculateButton">Calculate</button>
+  <form action="/add" method="post">
+    <div id="formPrices">
+      <input type="text" name="price[]" /><br/>
+    </div>
+    <button type="button" id="addButton">Add new</button><br/>
+    <button type="button" id="calculateButton">Calculate</button>
+  </form>
 
   <script src="./js/calculator.js"></script>
 </body>
