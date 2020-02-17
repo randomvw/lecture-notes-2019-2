@@ -17,7 +17,7 @@ router.get('/add', authorizeRole([2]), studentController.addStudent);
 router.post('/update', authorizeRole([1, 2]), studentController.updateStudent);
 router.get('/delete/:id', authorizeRole([2]), studentController.deleteStudent);
 router.get('/edit/:id', authorizeRole([1, 2]), studentController.editStudent);
-router.get('/admin', authorizeRole([2]), adminController.adminPage);
+router.get('/admin', checkIsAdmin, adminController.adminPage);
 router.post('/updateRoles', authorizeRole([2]), adminController.updateRoles);
 
 function authorizeRole(roles) {
@@ -27,6 +27,13 @@ function authorizeRole(roles) {
     }
     res.status(401).render('unauthorized');
   }
+}
+
+function checkIsAdmin(req, res, next) {
+  if (req.user.isAdmin) {
+    return next();
+  }
+  res.status(401).send('unauthorized');
 }
 
 module.exports = router;

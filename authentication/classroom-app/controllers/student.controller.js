@@ -5,6 +5,7 @@ exports.addStudent = async (req, res) => {
 }
 
 exports.listStudents = async (req, res) => {
+  console.log("STUDENT NAMES", await req.user.studentNames);
   let students = await Student.findAll({ where: { userId: req.user.id }, order: [['lastName', 'ASC']] });
 
   res.render('list', { isAdmin: req.user.roleId === 2, students, flashes: req.flash('success') });

@@ -8,5 +8,14 @@ module.exports = (sequelize, Sequelize) => {
     firstName: Sequelize.STRING,
     lastName: Sequelize.STRING,
     phone: Sequelize.STRING,
-  }, { freezeTableName: true });
+  }, {
+    setterMethods: {
+      fullName(value) {
+        let names = value.split(" ");
+        this.firstName = names[0];
+        this.lastName = names[1];
+      }
+    },
+    freezeTableName: true
+  });
 }

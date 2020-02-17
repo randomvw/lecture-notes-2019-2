@@ -14,7 +14,18 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.INTEGER,
       defaultValue: 1
     }
-  }, { freezeTableName: true });
+  }, {
+    getterMethods: {
+      isAdmin() {
+        return this.roleId === 2;
+      },
+      async studentNames() {
+        let students = await this.getStudents();
+        return students.map(student => student.firstName + " " + student.lastName).join();
+      }
+    },
+    freezeTableName: true
+  });
 
   passportLocalSequelize.attachToUser(User, {
     usernameField: 'username',
