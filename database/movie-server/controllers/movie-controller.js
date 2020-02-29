@@ -1,5 +1,6 @@
 const db = require('../db.js');
 const Movie = db.Movie;
+const Actor = db.Actor;
 
 exports.getAll = async (req, res) => {
   try {
@@ -19,7 +20,7 @@ exports.addOne = async (req, res) => {
 
 exports.getOne = async (req, res) => {
   const id = req.params.id;
-  const movie = await Movie.findByPk(id);
+  const movie = await Movie.findByPk(id, { include: [Actor] });
 
   if (!movie) {
     res.status(404).send();
@@ -58,4 +59,11 @@ exports.deleteOne = async (req, res) => {
   await foundMovie.destroy();
 
   res.json(foundMovie);
+}
+
+exports.addRelationship = async (req, res) => {
+  const { movieId, actorId } = req.body;
+  const movie = await Movie.findByPk(movieId);
+  await movie.addActor(actorId);
+  res.send(movie);
 }
